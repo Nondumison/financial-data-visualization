@@ -5,7 +5,6 @@ const XLSX = require("xlsx");
 const fs = require("fs");
 const path = require("path");
 
-// Ensure uploads directory exists
 const uploadDir = path.join(__dirname, "../uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
@@ -22,31 +21,23 @@ router.post("/finances/upload/:userId/:year", async (req, res) => {
   const uploadPath = path.join(uploadDir, file.name);
 
   try {
-    // Move the uploaded file
     await file.mv(uploadPath);
 
-    // Read and parse the Excel file
     const workbook = XLSX.readFile(uploadPath);
     const sheetName = workbook.SheetNames[0];
     const worksheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
-    // Start a transaction
     const connection = await db.getConnection();
     await connection.beginTransaction();
 
     try {
-      // Delete existing records for this user and year
       await connection.execute(
         "DELETE FROM financial_records WHERE user_id = ? AND year = ?",
         [userId, year]
       );
-
-      // Insert new records
       for (const row of worksheet) {
-        // Handle different month formats (number or name)
         let month = row.Month;
         if (isNaN(month)) {
-          // Convert month name to number if needed
           const monthNames = [
             "january",
             "february",
@@ -73,16 +64,13 @@ router.post("/finances/upload/:userId/:year", async (req, res) => {
         );
       }
 
-      // Commit the transaction
       await connection.commit();
       connection.release();
 
-      // Delete the uploaded file
       fs.unlinkSync(uploadPath);
 
       res.json({ message: "File uploaded and data stored successfully" });
     } catch (error) {
-      // Rollback the transaction on error
       await connection.rollback();
       connection.release();
       throw error;

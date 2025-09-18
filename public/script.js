@@ -13,21 +13,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const refreshBtn = document.getElementById("refreshBtn");
   let financialChart = null;
 
-  // Updated user data to match database and request
   const users = {
     1: "Jane Doe",
     2: "John Smith",
     3: "Nondu Grace",
   };
 
-  // Format currency in ZAR
   function formatZAR(amount) {
     const num = parseFloat(amount);
     if (isNaN(num)) return "R 0.00";
     return "R " + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
   }
 
-  // Get month name from number
   function getMonthName(monthNumber) {
     const months = [
       "January",
@@ -46,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return months[monthNumber - 1] || monthNumber;
   }
 
-  // Handle form submission
   uploadForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -92,14 +88,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Refresh button handler
   refreshBtn.addEventListener("click", function () {
     const userId = document.getElementById("userId").value;
     const year = document.getElementById("year").value;
     loadData(userId, year);
   });
 
-  // Function to load data from API
   async function loadData(userId, year) {
     showLoader(true);
 
@@ -127,7 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Function to calculate summary values
   function calculateSummary(data) {
     let total = 0;
     let highest = { amount: 0, month: "" };
@@ -149,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
     highestAmountEl.textContent = formatZAR(highest.amount);
   }
 
-  // Function to load sample data (for demo purposes)
   function loadSampleData(userId, year) {
     const sampleData = [
       { month: 1, amount: 100.5 },
@@ -174,7 +166,6 @@ document.addEventListener("DOMContentLoaded", function () {
     dataSection.classList.remove("hidden");
   }
 
-  // Function to display data in table
   function displayDataTable(data) {
     dataTable.innerHTML = "";
     const sortedData = [...data].sort((a, b) => a.month - b.month);
@@ -199,6 +190,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const sortedData = [...data].sort((a, b) => a.month - b.month);
 
+    const amounts = sortedData.map((row) => parseFloat(row.amount) || 0);
+
+    const min = Math.min(...amounts);
+    const max = Math.max(...amounts);
+
+    const lowThreshold = min + (max - min) / 3;
+    const highThreshold = min + (max - min) * (2 / 3);
+
+    const barColors = amounts.map((amt) => {
+      if (amt <= lowThreshold) return "rgba(252, 50, 50, 0.7)";
+      if (amt <= highThreshold) return "rgba(245, 131, 17, 0.7)";
+      return "rgba(27, 231, 44, 0.7)";
+    });
+
     financialChart = new Chart(ctx, {
       type: "bar",
       data: {
@@ -206,12 +211,12 @@ document.addEventListener("DOMContentLoaded", function () {
         datasets: [
           {
             label: "Amount (ZAR)",
-            data: sortedData.map((row) => parseFloat(row.amount) || 0),
-            backgroundColor: "rgba(44, 90, 160, 0.7)",
-            borderColor: "rgba(44, 90, 160, 1)",
+            data: amounts,
+            backgroundColor: barColors,
+            borderColor: barColors.map((c) => c.replace("0.7", "1")),
             borderWidth: 1,
             borderRadius: 5,
-            hoverBackgroundColor: "rgba(30, 60, 114, 0.8)",
+            hoverBackgroundColor: barColors.map((c) => c.replace("0.7", "0.9")),
           },
         ],
       },
@@ -221,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
         scales: {
           y: {
             beginAtZero: true,
-            title: { display: true, text: "Amount (ZAR)" },
+            title: { display: true, text: "Amount" },
             grid: { color: "rgba(0, 0, 0, 0.05)" },
             ticks: { callback: (value) => "R " + value.toLocaleString() },
           },

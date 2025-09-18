@@ -1,14 +1,14 @@
 :root {
-    --primary: #2c5aa0;
-    --secondary: #1e3c72;
-    --accent: #ff9e1b;
+    --primary: #ec7e4b;
+    --secondary: #034ace;
+    --accent: #ec7e4b;
     --light: #f8f9fa;
     --dark: #212529;
     --success: #28a745;
     --warning: #dc3545;
     --gray: #6c757d;
     --light-gray: #e9ecef;
-    --zar-green: #007749;
+    --zar-green: #034ace;
 }
 
 * {
@@ -344,7 +344,7 @@ footer {
 }
 
 .refresh-btn {
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
     padding: 8px 15px;
     border-radius: 6px;

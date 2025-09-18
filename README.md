@@ -11,9 +11,15 @@ A web-based dashboard for visualizing and managing financial data in South Afric
 - **Real-Time Updates**: Refresh data dynamically after uploads or manual refresh.
 
 ## Screenshots
-### 1. List / Issues Once Logged
+1. **Dashboard**
 
-![Dashboard / Issues Screen](./client/public/list.jpeg)
+![Dashboard ](./public/photo1.png)
+2. **Table**
+
+![Table](./public/photo2.png)
+3. **Bar chart**
+
+![Bar Chart ](./public/photo3.png)
 
 ## Installation
 1. **Clone the Repository**
@@ -110,7 +116,7 @@ MIT License
 Uses Chart.js for visualization and Font Awesome for icons.
 
 ## Contact
-For questions or support, please open an issue on the repository or contact the maintainer.
+For questions or support, please open an issue on the repository.
 
 ## Acknowledgments
 Built with ❤️ by Nondumiso Nkosi
