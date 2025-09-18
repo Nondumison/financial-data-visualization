@@ -22,10 +22,10 @@ A web-based dashboard for visualizing and managing financial data in South Afric
 git clone https://github.com/Nondumison/financial-data-visualization.git
 cd financial-data-dashboard
 ```
-2. ### Install dependencies:
+2. **Install dependencies:**
 `npm install`
 
-3. ### Set Up MySQL Database:
+3. **Set Up MySQL Database:**
 
 Create a database (e.g., financial_db)
 ```bash
@@ -56,7 +56,7 @@ INSERT INTO users (user_id, name) VALUES
 (3, 'Nondu Grace');
 ```
 
-4. ### Configure Environment:
+4. **Configure Environment:**
 Create a `.env `file in the root directory of the project to store your MySQL credentials securely. 
 *Example .env file content:*
 ```bash
@@ -65,7 +65,7 @@ DB_USER=your_mysql_username
 DB_PASSWORD=your_mysql_password
 DB_DATABASE=financial_db
 ```
-5. ### Run the Application:
+5. **Run the Application:**
 ```bash
 npm run dev
 ```
@@ -77,25 +77,33 @@ Open your browser and navigate to `http://localhost:3000`
 2. **Enter a Year:** Input a year (e.g., 2025).
 3. **Upload Data:** Select an Excel file with Month and Amount columns and click "Upload File".
 4. **View Data:** The table and chart will update with the uploaded data. Use the "Refresh Data" button to reload if needed.
-
 ## File Structure
 
-**public/styles.css:** Styles for layout, responsiveness, and design.
-**public/script.js:** JavaScript for interactivity, data handling, and Chart.js integration.
-**public/index.html:** HTML for the UI
-**routes/api.js:** Backend API routes for file uploads and data retrieval.
-**config/db.js:** MySQL database configuration.
-**data/sample_data.xlsx:** Sample excel data for the project
-**index.js:** Express server setup.
+financial-data-dashboard/
 
+├─ public/ # Static files and frontend assets
+│  ├─ styles.css # Styles for layout, responsiveness, and design
+│  ├─ script.js # JavaScript for interactivity, data handling, and Chart.
+│  ├─ index.html # HTML for the UI
+├─ data/ # Excel document
+│  └─ sample_data.xlsx # Sample Excel data for the project
+├─ routes/ # Backend API routes
+│  └─ api.js # Backend API routes for file uploads and data retrieval
+├─ config/ # Configuration files
+│  └─ db.js # MySQL database configuration
+├─ index.js # Express server setup
+└─ README.md # This file
 
 ## Dependencies
 
-**express:** Web framework.
-**express-fileupload:** For handling file uploads.
-**mysql2:** MySQL database driver.
-**xlsx:** Excel file parsing.
-**chart.js:** Charting library (via CDN).
+**Frontend**: 
+- **chart.js** # Charting library (via CDN)
+
+**Backend**: 
+- **express** # Web framework
+- **express-fileupload** # For handling file uploads
+- **mysql2** # MySQL database driver
+- **xlsx** # Excel file parsing
 
 ## Prerequisites
 
@@ -114,7 +122,7 @@ Open your browser and navigate to `http://localhost:3000`
 ## License
 MIT License
 
-## Inspired by financial data tracking needs.
+**Inspired by financial data tracking needs.**
 Uses Chart.js for visualization and Font Awesome for icons.
 
 ## Contact
