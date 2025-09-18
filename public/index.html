@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Data Dashboard - ZAR</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>Financial Data Dashboard <span class="zar-badge">ZAR</span></h1>
+                </div>
+            </div>
+        </header>
+        
+        <div class="grid">
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-file-upload"></i> Upload Financial Data</h2>
+                
+                <div id="alertBox" class="alert hidden"></div>
+                
+                <form id="uploadForm">
+                    <div class="form-group">
+                        <label for="userId">Select User</label>
+                        <select id="userId" name="userId" required>
+                            <option value="1">Jane Doe (1)</option>
+                            <option value="2">John Smith (2)</option>
+                            <option value="3">Nondu Grace (3)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="year">Year</label>
+                        <input type="number" id="year" name="year" placeholder="Enter year" min="2000" max="2100" required value="2025">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="file">Excel File</label>
+                        <div class="file-input">
+                            <input type="file" id="file" name="file" accept=".xlsx, .xls" required>
+                            <div><i class="fas fa-cloud-upload-alt"></i> Click to select Excel file</div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" id="uploadBtn">
+                        <i class="fas fa-upload"></i> Upload File
+                    </button>
+                </form>
+                
+                <div id="loader" class="loader hidden"></div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-info-circle"></i> Instructions</h2>
+                <p>Upload an Excel file with financial data for visualization. The file should have two columns:</p>
+                <ul style="margin: 15px 0 15px 20px;">
+                    <li><strong>Month</strong> (e.g., January, Feb, Mar, or 1, 2, 3)</li>
+                    <li><strong>Amount</strong> (numerical values in ZAR)</li>
+                </ul>
+                <p>After uploading, the data will be displayed in a table and visualized in a bar chart.</p>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <p><strong>Note:</strong> All amounts are displayed in South African Rands (ZAR).</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="dataSection" class="hidden">
+            <div class="user-info">
+                <div>User: <span id="userName">Jane Doe</span></div>
+                <div>Year: <span id="dataYear">2025</span></div>
+                <div class="refresh-btn" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i> Refresh Data
+                </div>
+            </div>
+            
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <h3>TOTAL ANNUAL AMOUNT</h3>
+                    <div class="value" id="totalAmount">R 0.00</div>
+                    <div class="period">2025</div>
+                </div>
+                <div class="summary-card">
+                    <h3>AVERAGE MONTHLY AMOUNT</h3>
+                    <div class="value" id="averageAmount">R 0.00</div>
+                    <div class="period">2025</div>
+                </div>
+                <div class="summary-card">
+                    <h3>HIGHEST MONTH</h3>
+                    <div class="value" id="highestMonth">-</div>
+                    <div class="period" id="highestAmount">R 0.00</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-table"></i> Financial Records</h2>
+                <div id="tableContainer">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Amount (ZAR)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTable">
+                            <!-- Data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-chart-bar"></i> Financial Data Visualization</h2>
+                <p class="chart-title">Monthly Financial Amounts (ZAR)</p>
+                <div class="chart-container">
+                    <canvas id="financialChart"></canvas>
+                </div>
+                <p class="axis-label">X-axis: Months of the year</p>
+                <p class="axis-label">Y-axis: Amount in South African Rands (ZAR)</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Financial Data Visualization Dashboard &copy; 2023 | All amounts in South African Rands (ZAR)</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
