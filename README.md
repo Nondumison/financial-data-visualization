@@ -77,33 +77,6 @@ Open your browser and navigate to `http://localhost:3000`
 2. **Enter a Year:** Input a year (e.g., 2025).
 3. **Upload Data:** Select an Excel file with Month and Amount columns and click "Upload File".
 4. **View Data:** The table and chart will update with the uploaded data. Use the "Refresh Data" button to reload if needed.
-## File Structure
-
-financial-data-dashboard/
-
-├─ public/ # Static files and frontend assets
-
-│  ├─ styles.css # Styles for layout, responsiveness, and design
-
-│  ├─ script.js # JavaScript for interactivity, data handling, and Chart.
-
-│  ├─ index.html # HTML for the UI
-
-├─ data/ # Excel document
-
-│  └─ sample_data.xlsx # Sample Excel data for the project
-
-├─ routes/ # Backend API routes
-
-│  └─ api.js # Backend API routes for file uploads and data retrieval
-
-├─ config/ # Configuration files
-
-│  └─ db.js # MySQL database configuration
-
-├─ index.js # Express server setup
-
-└─ README.md # This file
 
 ## Dependencies
 
